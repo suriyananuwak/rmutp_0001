@@ -13,7 +13,7 @@ services:
       - strapi-net
 
   #strapi service
-  strapi:
+  app:
     image: prawee/strapi:latest
     container_name: my_app_compose
     ports:
