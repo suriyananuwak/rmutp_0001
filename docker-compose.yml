@@ -4,27 +4,27 @@ services:
     image: postgres:latest
     container_name: my_db_compose
     ports:
-      - "55432:5432"
+      - ${DB_PORT}:5432
     environment:
-      POSTGRES_DB: suriyan
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
     networks:
       - strapi-net
 
+
   #strapi service
-  app:
+  strapi:
     image: prawee/strapi:latest
     container_name: my_app_compose
     ports:
-      - "${DATABASE_PORT}:1337"
+      - ${APP_PORT}:1337
     volumes: 
       - "./strapi-data:/srv/app"
     environment:
-      DATABASE_CLIENT: postgres
-      DATABASE_NAME: ${DATABASE_NAME}
-      DATABASE_HOST: my_db_compose
+      DATABASE_HOST: db
       DATABASE_PORT: 5432
+      DATABASE_NAME: ${DATABASE_NAME}
       DATABASE_USERNAME: ${DATABASE_USER}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_SSL: false
